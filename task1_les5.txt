@@ -1,0 +1,82 @@
+-- 1 Пусть в таблице users поля created_at и updated_at оказались незаполненными. 
+-- Заполните их текущими датой и временем.
+
+-- Переходим в БД shop:
+
+mysql> USE shop
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+-- Удаляем старую таблицу:
+
+mysql> DROP TABLE users;
+Query OK, 0 rows affected (0.07 sec)
+
+-- Создаем таблицу users:
+
+mysql> CREATE TABLE users (
+    ->   id SERIAL PRIMARY KEY,
+    ->   name VARCHAR(255),
+    ->   birthday_at DATE,
+    ->   created_at DATETIME,
+    ->   updated_at DATETIME
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+-- Заполняем значениями:
+
+mysql> INSERT INTO
+    ->   users (name, birthday_at, created_at, updated_at)
+    -> VALUES
+    ->   ('Геннадий', '1990-10-05', NULL, NULL),
+    ->   ('Наталья', '1984-11-12', NULL, NULL),
+    ->   ('Александр', '1985-05-20', NULL, NULL),
+    ->   ('Сергей', '1988-02-14', NULL, NULL),
+    ->   ('Иван', '1998-01-12', NULL, NULL),
+    ->   ('Мария', '1992-08-29', NULL, NULL);
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+-- Смотрим результат:
+
+mysql> SELECT * FROM users;
++----+--------------------+-------------+------------+------------+
+| id | name               | birthday_at | created_at | updated_at |
++----+--------------------+-------------+------------+------------+
+|  1 | Геннадий           | 1990-10-05  | NULL       | NULL       |
+|  2 | Наталья            | 1984-11-12  | NULL       | NULL       |
+|  3 | Александр          | 1985-05-20  | NULL       | NULL       |
+|  4 | Сергей             | 1988-02-14  | NULL       | NULL       |
+|  5 | Иван               | 1998-01-12  | NULL       | NULL       |
+|  6 | Мария              | 1992-08-29  | NULL       | NULL       |
++----+--------------------+-------------+------------+------------+
+6 rows in set (0.00 sec)
+
+-- Заменяем значения created_at, updated_at на текущюю дату:
+
+mysql> UPDATE
+    ->   users
+    -> SET
+    ->   created_at = NOW(),
+    ->   updated_at = NOW();
+Query OK, 6 rows affected (0.00 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+-- Смотрим результат
+
+mysql> SELECT * FROM users;
++----+--------------------+-------------+---------------------+---------------------+
+| id | name               | birthday_at | created_at          | updated_at          |
++----+--------------------+-------------+---------------------+---------------------+
+|  1 | Геннадий           | 1990-10-05  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
+|  2 | Наталья            | 1984-11-12  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
+|  3 | Александр          | 1985-05-20  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
+|  4 | Сергей             | 1988-02-14  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
+|  5 | Иван               | 1998-01-12  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
+|  6 | Мария              | 1992-08-29  | 2020-11-23 19:13:21 | 2020-11-23 19:13:21 |
++----+--------------------+-------------+---------------------+---------------------+
+6 rows in set (0.00 sec)
+
+  
