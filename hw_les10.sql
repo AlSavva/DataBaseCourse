@@ -89,6 +89,8 @@ mysql> SHOW INDEX FROM media;
 отношение в процентах (общее количество пользователей в группе / всего пользователей в системе) * 100.
 */
 
+-- !Attention!!! Данный запрос даст верный результат только при установленном индексе profiles_birthday_idx из предыдущего задания.!!!
+
 SELECT DISTINCT communities.id,
   communities.name AS community_name,
   COUNT(communities_users.user_id) OVER() / (SELECT COUNT(1) FROM communities)  AS average_users_comm,
