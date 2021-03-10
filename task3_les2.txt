@@ -1,0 +1,15 @@
+-- Задание 3
+-- Создайте дамп базы данных example из предыдущего задания, разверните
+-- содержимое дампа в новую базу данных sample.
+
+-- Работаем в консоли:
+1. user@localhost> mysqldump example > example.sql
+
+--вариант№1: Переходим в mysql.
+2а. mysql> CREATE DATABASE sample;
+
+--вариант№2: Не переходим в mysql.
+2b. user@localhost> mysql -е 'CREATE DATABASE sample'
+
+--Возвращаемся в консоль:
+3. user@localhost> mysql sample < example.sql
